@@ -1,0 +1,11 @@
+<Project>
+
+  <ItemGroup Label="JetBrains.Annotations Include">
+
+    <PackageReference Include="JetBrains.Annotations" Version="2023.2.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    
+  </ItemGroup>
+
+</Project>

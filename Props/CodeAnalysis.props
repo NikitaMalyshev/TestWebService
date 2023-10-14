@@ -1,0 +1,23 @@
+<Project>
+
+  <PropertyGroup Label="Code Analysis Rulesets">
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)..\Tools\code-analysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Label="StyleCop Code Analysis Settings">
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)..\Tools\stylecop.json" Link="stylecop.json" Visible="false" />
+  </ItemGroup>
+  
+	<ItemGroup Label="NuGet" Condition="!$(MSBuildProjectName.EndsWith('Tests')) And !$(MSBuildProjectName.EndsWith('Portal'))">
+
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+  </ItemGroup>
+
+</Project>
