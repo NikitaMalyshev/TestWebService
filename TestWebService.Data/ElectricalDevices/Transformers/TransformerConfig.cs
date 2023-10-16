@@ -13,12 +13,10 @@ internal class TransformerConfig : IEntityTypeConfiguration<Transformer>
     public void Configure(EntityTypeBuilder<Transformer> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(p => p.Id).UseIdentityColumn();
         builder.Property(p => p.Number).IsRequired();
         builder.Property(p => p.Type).IsRequired().HasConversion<string>();
         builder.Property(p => p.Subtype).IsRequired().HasConversion<string>();
         builder.Property(p => p.TransformationRatio).IsRequired();
         builder.Property(p => p.VerificationDate).IsRequired().HasColumnType("date");
-        builder.Property(p => p.ElectricityMeasuringPointId).IsRequired();
     }
 }

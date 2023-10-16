@@ -7,6 +7,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using TestWebService.Data;
     using TestWebService.Data.Context;
 
     /// <summary>
@@ -38,6 +39,8 @@
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen();
+
+            services.AddDbInitializer();
         }
 
         /// <summary>

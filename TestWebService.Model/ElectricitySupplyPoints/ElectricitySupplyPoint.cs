@@ -1,7 +1,6 @@
 ﻿namespace TestWebService.Model.ElectricitySupplyPoints;
 
 using System;
-using TestWebService.Model.ElectricityConsumptionObjects;
 
 /// <summary>
 /// Модель точки поставки электроэнергии.
@@ -27,9 +26,4 @@ public class ElectricitySupplyPoint
     /// Получает или задает идентификатор объекта потребления электроэнергии.
     /// </summary>
     public Guid ElectricityConsumptionObjectId { get; set; }
-
-    /// <summary>
-    /// Получает или задает объект потребления электроэнергии.
-    /// </summary>
-    public virtual ElectricityConsumptionObject ElectricityConsumptionObject { get; set; }
 }

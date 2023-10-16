@@ -13,9 +13,18 @@ internal class ElectricityConsumptionObjectConfig : IEntityTypeConfiguration<Ele
     public void Configure(EntityTypeBuilder<ElectricityConsumptionObject> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(p => p.Id).UseIdentityColumn();
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.Address).IsRequired();
         builder.Property(p => p.OrganizationId).IsRequired();
+
+        builder
+            .HasMany(p => p.ElectricityMeasuringPoints)
+            .WithOne()
+            .HasForeignKey(p => p.ElectricityConsumptionObjectId);
+
+        builder
+            .HasMany(p => p.ElectricitySupplyPoints)
+            .WithOne()
+            .HasForeignKey(p => p.ElectricityConsumptionObjectId);
     }
 }

@@ -8,10 +8,10 @@ public enum TransformerType
     /// <summary>
     /// Трансформатор тока.
     /// </summary>
-    Current,
+    Current = 1,
 
     /// <summary>
     /// Трансформатор напряжения.
     /// </summary>
-    Voltage
+    Voltage = 2
 }

@@ -13,7 +13,6 @@ internal class ElectricitySupplyPointConfig : IEntityTypeConfiguration<Electrici
     public void Configure(EntityTypeBuilder<ElectricitySupplyPoint> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(p => p.Id).UseIdentityColumn();
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.MaxPower).IsRequired();
         builder.Property(p => p.ElectricityConsumptionObjectId).IsRequired();

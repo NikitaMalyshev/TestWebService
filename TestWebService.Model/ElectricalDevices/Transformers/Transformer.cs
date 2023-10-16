@@ -1,8 +1,6 @@
 ﻿namespace TestWebService.Model.ElectricalDevices.Transformers;
 
-using System;
 using TestWebService.Model.ElectricalDevices.Base;
-using TestWebService.Model.ElectricityMeasuringPoints;
 
 /// <summary>
 /// Модель трансформатора.
@@ -23,14 +21,4 @@ public class Transformer : ElectricalDevice
     /// Получает или задает коэффициент трансформации.
     /// </summary>
     public float TransformationRatio { get; set; }
-
-    /// <summary>
-    /// Получает или задает идентификатор точки измерения электроэнергии.
-    /// </summary>
-    public Guid ElectricityMeasuringPointId { get; set; }
-
-    /// <summary>
-    /// Получает или задает точку измерения электроэнергии.
-    /// </summary>
-    public virtual ElectricityMeasuringPoint ElectricityMeasuringPoint { get; set; }
 }

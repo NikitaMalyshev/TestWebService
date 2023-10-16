@@ -3,7 +3,6 @@
 using System;
 using TestWebService.Model.ElectricalDevices.EnergyMeters;
 using TestWebService.Model.ElectricalDevices.Transformers;
-using TestWebService.Model.ElectricityConsumptionObjects;
 
 /// <summary>
 /// Модель точки измерения электроэнергии.
@@ -28,35 +27,30 @@ public class ElectricityMeasuringPoint
     /// <summary>
     /// Получает или задает счетчик электроэнергии.
     /// </summary>
-    public EnergyMeter EnergyMeter { get; set; }
+    public virtual EnergyMeter EnergyMeter { get; set; }
 
     /// <summary>
-    /// Получает или задает идентификатор трансформатор тока.
+    /// Получает или задает идентификатор трансформатора тока.
     /// </summary>
     public Guid CurrentTransformerId { get; set; }
 
     /// <summary>
     /// Получает или задает трансформатор тока.
     /// </summary>
-    public Transformer CurrentTransformer { get; set; }
+    public virtual Transformer CurrentTransformer { get; set; }
 
     /// <summary>
-    /// Получает или задает идентификатор трансформатор напряжения.
+    /// Получает или задает идентификатор трансформатора напряжения.
     /// </summary>
     public Guid VoltageTransformerId { get; set; }
 
     /// <summary>
     /// Получает или задает трансформатор напряжения.
     /// </summary>
-    public Transformer VoltageTransformer { get; set; }
+    public virtual Transformer VoltageTransformer { get; set; }
 
     /// <summary>
     /// Получает или задает идентификатор объекта потребления электроэнергии.
     /// </summary>
     public Guid ElectricityConsumptionObjectId { get; set; }
-
-    /// <summary>
-    /// Получает или задает объект потребления электроэнергии.
-    /// </summary>
-    public virtual ElectricityConsumptionObject ElectricityConsumptionObject { get; set; } = null!;
 }
