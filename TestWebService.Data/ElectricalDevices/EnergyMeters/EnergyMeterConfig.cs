@@ -13,10 +13,8 @@ internal class EnergyMeterConfig : IEntityTypeConfiguration<EnergyMeter>
     public void Configure(EntityTypeBuilder<EnergyMeter> builder)
     {
         builder.HasKey(x => x.Id);
-        builder.Property(p => p.Id).UseIdentityColumn();
         builder.Property(p => p.Number).IsRequired();
         builder.Property(p => p.VerificationDate).IsRequired().HasColumnType("date");
         builder.Property(p => p.Type).IsRequired().HasConversion<string>();
-        builder.Property(p => p.ElectricityMeasuringPointId).IsRequired();
     }
 }

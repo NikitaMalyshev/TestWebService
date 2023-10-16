@@ -32,7 +32,7 @@ public class Organization
     /// <summary>
     /// Получает или задает родительскую организацию.
     /// </summary>
-    public virtual Organization ParentOrganization { get; set; }
+    public virtual Organization Parent { get; set; }
 
     /// <summary>
     /// Получает или задает дочерние организации.
@@ -42,5 +42,5 @@ public class Organization
     /// <summary>
     /// Получает или задает объекты потребления электроэнергии.
     /// </summary>
-    public ICollection<ElectricityConsumptionObject> ElectricityConsumptionObjects { get; set; }
+    public virtual ICollection<ElectricityConsumptionObject> ElectricityConsumptionObjects { get; set; }
 }

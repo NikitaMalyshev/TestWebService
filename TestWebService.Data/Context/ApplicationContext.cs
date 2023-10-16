@@ -8,6 +8,7 @@ using TestWebService.Data.ElectricityMeasuringPoints;
 using TestWebService.Data.ElectricitySupplyPoints;
 using TestWebService.Data.Organizations;
 using Microsoft.EntityFrameworkCore;
+using TestWebService.Data.DbInitialize;
 using TestWebService.Model.ElectricalDevices.EnergyMeters;
 using TestWebService.Model.ElectricalDevices.Transformers;
 using TestWebService.Model.ElectricityConsumptionObjects;
@@ -21,11 +22,18 @@ using TestWebService.Model.Organizations;
 public class ApplicationContext : DbContext
 {
     /// <summary>
+    /// Инициализатор БД.
+    /// </summary>
+    private readonly IDbInitializer _dbInitializer;
+
+    /// <summary>
     /// Инициализирует экземпляр <see cref="ApplicationContext"/>.
     /// </summary>
     /// <param name="options">Опции контекста БД.</param>
-    public ApplicationContext(DbContextOptions options) : base(options)
+    /// <param name="dbInitializer">Инициализатор БД.</param>
+    public ApplicationContext(DbContextOptions options, IDbInitializer dbInitializer) : base(options)
     {
+        _dbInitializer = dbInitializer;
         InitializeDb();
     }
 
@@ -65,20 +73,21 @@ public class ApplicationContext : DbContext
         if (modelBuilder == null)
             throw new ArgumentNullException(nameof(modelBuilder));
 
-        modelBuilder.ApplyConfiguration(new EnergyMeterConfig());
-        modelBuilder.ApplyConfiguration(new TransformerConfig());
+        modelBuilder.ApplyConfiguration(new OrganizationConfig());
         modelBuilder.ApplyConfiguration(new ElectricityConsumptionObjectConfig());
         modelBuilder.ApplyConfiguration(new ElectricityMeasuringPointConfig());
         modelBuilder.ApplyConfiguration(new ElectricitySupplyPointConfig());
-        modelBuilder.ApplyConfiguration(new OrganizationConfig());
+        modelBuilder.ApplyConfiguration(new EnergyMeterConfig());
+        modelBuilder.ApplyConfiguration(new TransformerConfig());
 
-        // modelBuilder.Entity<User>().HasData(
-        //     new User[] 
-        //     {
-        //         new User { Id=1, Name="Tom", Age=23},
-        //         new User { Id=2, Name="Alice", Age=26},
-        //         new User { Id=3, Name="Sam", Age=28}
-        //     });
+        var dataGraph = _dbInitializer.GenerateTestData();
+
+        modelBuilder.Entity<Organization>().HasData(dataGraph.Organizations);
+        modelBuilder.Entity<ElectricityConsumptionObject>().HasData(dataGraph.ElectricityConsumptionObjects);
+        modelBuilder.Entity<ElectricityMeasuringPoint>().HasData(dataGraph.ElectricityMeasuringPoints);
+        modelBuilder.Entity<ElectricitySupplyPoint>().HasData(dataGraph.ElectricitySupplyPoints);
+        modelBuilder.Entity<EnergyMeter>().HasData(dataGraph.EnergyMeters);
+        modelBuilder.Entity<Transformer>().HasData(dataGraph.Transformers);
     }
 
     /// <summary>

@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using TestWebService.Model.ElectricityMeasuringPoints;
 using TestWebService.Model.ElectricitySupplyPoints;
-using TestWebService.Model.Organizations;
 
 /// <summary>
 /// Модель объекта потребления электроэнергии.
@@ -32,17 +31,12 @@ public class ElectricityConsumptionObject
     public Guid OrganizationId { get; set; }
 
     /// <summary>
-    /// Получает или задает организацию.
-    /// </summary>
-    public virtual Organization Organization { get; set; } = null!;
-
-    /// <summary>
     /// Получает или задает точки измерения электроэнергии.
     /// </summary>
-    public ICollection<ElectricityMeasuringPoint> ElectricityMeasuringPoints { get; } = new List<ElectricityMeasuringPoint>();
+    public virtual ICollection<ElectricityMeasuringPoint> ElectricityMeasuringPoints { get; set; }
 
     /// <summary>
     /// Получает или задает точки поставки электроэнергии.
     /// </summary>
-    public ICollection<ElectricitySupplyPoint> ElectricitySupplyPoints { get; } = new List<ElectricitySupplyPoint>();
+    public virtual ICollection<ElectricitySupplyPoint> ElectricitySupplyPoints { get; set; }
 }

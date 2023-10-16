@@ -3,15 +3,15 @@
 /// <summary>
 /// Типы счетчиков электроэнергии по принципу действия.
 /// </summary>
-public enum MeterTypes
+public enum MeterType
 {
     /// <summary>
     /// Индукционный.
     /// </summary>
-    Induction,
-    
+    Induction = 1,
+
     /// <summary>
     /// Электронный (статический)
     /// </summary>
-    Electricity
+    Electricity = 2
 }

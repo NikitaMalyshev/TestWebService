@@ -8,10 +8,10 @@ public enum TransformerSubtype
     /// <summary>
     /// Первый подтип.
     /// </summary>
-    FirstSubtype,
+    FirstSubtype = 1,
 
     /// <summary>
     /// Второй подтип.
     /// </summary>
-    SecondSubtype
+    SecondSubtype = 2
 }
