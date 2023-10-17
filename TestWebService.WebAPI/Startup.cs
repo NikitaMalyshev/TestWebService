@@ -40,7 +40,9 @@
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen();
 
-            services.AddDbInitializer();
+            services
+                .AddDbInitializer()
+                .AddRepositories();
         }
 
         /// <summary>
