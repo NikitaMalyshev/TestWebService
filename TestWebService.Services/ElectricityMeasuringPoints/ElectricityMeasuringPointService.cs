@@ -1,6 +1,7 @@
 namespace TestWebService.Services.ElectricityMeasuringPoints;
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Data.ElectricityMeasuringPoints;
@@ -70,5 +71,13 @@ public class ElectricityMeasuringPointService : IElectricityMeasuringPointServic
 
         await _repository.CreateAsync(newPoint, cancellationToken).ConfigureAwait(false);
         await _repository.SaveAsync();
+    }
+
+    /// <inheritdoc />
+    public Task<List<EnergyMeter>> GetMetersWithExpiredVerificationDate(
+        Guid electricityConsumptionObjectId,
+        CancellationToken cancellationToken)
+    {
+        return _repository.GetExpiredVerificationMeters(electricityConsumptionObjectId, cancellationToken);
     }
 }
