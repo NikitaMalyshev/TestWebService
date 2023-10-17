@@ -3,12 +3,15 @@ namespace TestWebService.Data.Repository;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Threading;
 
 /// <summary>
 /// Интерфейс базового репозитория.
 /// </summary>
 /// <typeparam name="T">Тип сущности.</typeparam>
-public interface IRepositoryBase<T>
+public interface IRepositoryBase<T> where T : class
 {
     /// <summary>
     /// Поиск всех сущностей.
@@ -27,7 +30,9 @@ public interface IRepositoryBase<T>
     /// Создание сущности.
     /// </summary>
     /// <param name="entity">Сущность.</param>
-    void Create(T entity);
+    /// <param name="token">Флаг отмены выполнения операции.</param>
+    /// <returns>Результат выполнения задачи.</returns>
+    ValueTask<EntityEntry<T>> CreateAsync(T entity, CancellationToken token);
 
     /// <summary>
     /// Обновление сущности.
@@ -40,4 +45,10 @@ public interface IRepositoryBase<T>
     /// </summary>
     /// <param name="entity">Сущность.</param>
     void Delete(T entity);
+
+    /// <summary>
+    /// Сохраняет изменения в контексте.
+    /// </summary>
+    /// <returns>Задача сохранения изменений в контексте.</returns>
+    Task<int> SaveAsync();
 }

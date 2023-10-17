@@ -3,8 +3,11 @@ namespace TestWebService.Data.Repository;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using Context;
 using Microsoft.EntityFrameworkCore;
-using TestWebService.Data.Context;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 /// <summary>
 /// Базовый репозиторий.
@@ -15,7 +18,7 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     /// <summary>
     /// Контекст БД.
     /// </summary>
-    protected readonly ApplicationContext DbContext;
+    private readonly ApplicationContext _dbContext;
 
     /// <summary>
     /// Инициализирует экземпляр <see cref="RepositoryBase{T}" />.
@@ -23,36 +26,42 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     /// <param name="dbContext">Контекст БД.</param>
     protected RepositoryBase(ApplicationContext dbContext)
     {
-        DbContext = dbContext;
+        _dbContext = dbContext;
     }
 
     /// <inheritdoc />
     public IQueryable<T> FindAll()
     {
-        return DbContext.Set<T>().AsNoTracking();
+        return _dbContext.Set<T>().AsNoTracking();
     }
 
     /// <inheritdoc />
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
     {
-        return DbContext.Set<T>().Where(expression).AsNoTracking();
+        return _dbContext.Set<T>().Where(expression).AsNoTracking();
     }
 
     /// <inheritdoc />
-    public void Create(T entity)
+    public ValueTask<EntityEntry<T>> CreateAsync(T entity, CancellationToken token)
     {
-        DbContext.Set<T>().Add(entity);
+        return _dbContext.Set<T>().AddAsync(entity, token);
     }
 
     /// <inheritdoc />
     public void Update(T entity)
     {
-        DbContext.Set<T>().Update(entity);
+        _dbContext.Set<T>().Update(entity);
     }
 
     /// <inheritdoc />
     public void Delete(T entity)
     {
-        DbContext.Set<T>().Remove(entity);
+        _dbContext.Set<T>().Remove(entity);
+    }
+
+    /// <inheritdoc />
+    public Task<int> SaveAsync()
+    {
+        return _dbContext.SaveChangesAsync();
     }
 }

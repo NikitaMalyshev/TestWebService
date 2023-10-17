@@ -1,20 +1,20 @@
 ﻿namespace TestWebService.Data.Context;
 
 using System;
-using TestWebService.Data.ElectricalDevices.EnergyMeters;
-using TestWebService.Data.ElectricalDevices.Transformers;
-using TestWebService.Data.ElectricityConsumptionObjects;
-using TestWebService.Data.ElectricityMeasuringPoints;
-using TestWebService.Data.ElectricitySupplyPoints;
-using TestWebService.Data.Organizations;
+using DbInitialize;
+using ElectricalDevices.EnergyMeters;
+using ElectricalDevices.Transformers;
+using ElectricityConsumptionObjects;
+using ElectricityMeasuringPoints;
+using ElectricitySupplyPoints;
 using Microsoft.EntityFrameworkCore;
-using TestWebService.Data.DbInitialize;
-using TestWebService.Model.ElectricalDevices.EnergyMeters;
-using TestWebService.Model.ElectricalDevices.Transformers;
-using TestWebService.Model.ElectricityConsumptionObjects;
-using TestWebService.Model.ElectricityMeasuringPoints;
-using TestWebService.Model.ElectricitySupplyPoints;
-using TestWebService.Model.Organizations;
+using Model.ElectricalDevices.EnergyMeters;
+using Model.ElectricalDevices.Transformers;
+using Model.ElectricityConsumptionObjects;
+using Model.ElectricityMeasuringPoints;
+using Model.ElectricitySupplyPoints;
+using Model.Organizations;
+using Organizations;
 
 /// <summary>
 /// Контекст БД.

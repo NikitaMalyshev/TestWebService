@@ -1,8 +1,8 @@
 namespace TestWebService.Data.ElectricalDevices.EnergyMeters;
 
-using TestWebService.Data.Context;
-using TestWebService.Model.ElectricalDevices.EnergyMeters;
-using TestWebService.Data.Repository;
+using Context;
+using Model.ElectricalDevices.EnergyMeters;
+using Repository;
 
 /// <summary>
 /// Репозиторий счетчиков электроэнергии.

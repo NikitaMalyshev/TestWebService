@@ -1,14 +1,13 @@
 namespace TestWebService.Data;
 
-using TestWebService.Data.DbInitialize;
-using TestWebService.Data.ElectricalDevices.EnergyMeters;
-using TestWebService.Data.ElectricalDevices.Transformers;
-using TestWebService.Data.ElectricityConsumptionObjects;
-using TestWebService.Data.ElectricityMeasuringPoints;
-using TestWebService.Data.ElectricitySupplyPoints;
-using TestWebService.Data.Organizations;
-
+using DbInitialize;
+using ElectricalDevices.EnergyMeters;
+using ElectricalDevices.Transformers;
+using ElectricityConsumptionObjects;
+using ElectricityMeasuringPoints;
+using ElectricitySupplyPoints;
 using Microsoft.Extensions.DependencyInjection;
+using Organizations;
 
 /// <summary>
 /// Методы расширения <see cref="IServiceCollection" />.

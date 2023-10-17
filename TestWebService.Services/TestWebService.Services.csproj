@@ -4,4 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TestWebService.Data\TestWebService.Data.csproj" />
+    </ItemGroup>
+
 </Project>

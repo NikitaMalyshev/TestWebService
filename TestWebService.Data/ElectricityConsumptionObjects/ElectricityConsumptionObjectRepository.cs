@@ -1,8 +1,8 @@
 namespace TestWebService.Data.ElectricityConsumptionObjects;
 
-using TestWebService.Data.Context;
-using TestWebService.Model.ElectricityConsumptionObjects;
-using TestWebService.Data.Repository;
+using Context;
+using Model.ElectricityConsumptionObjects;
+using Repository;
 
 /// <summary>
 /// Репозиторий объектов потребления электроэнергии.

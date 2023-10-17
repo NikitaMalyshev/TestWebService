@@ -1,7 +1,7 @@
 namespace TestWebService.Data.ElectricitySupplyPoints;
 
-using TestWebService.Model.ElectricitySupplyPoints;
-using TestWebService.Data.Repository;
+using Model.ElectricitySupplyPoints;
+using Repository;
 
 /// <summary>
 /// Интерфейс репозитория точек поставки электроэнергии.

@@ -1,6 +1,6 @@
 namespace TestWebService.Data.DbInitialize;
 
-using TestWebService.Data.DbInitialize.DTO;
+using DTO;
 
 /// <summary>
 /// Интерфейс инициализатора БД.

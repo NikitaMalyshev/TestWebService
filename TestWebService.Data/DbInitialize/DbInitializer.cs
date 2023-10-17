@@ -2,13 +2,13 @@ namespace TestWebService.Data.DbInitialize;
 
 using System;
 using System.Collections.Generic;
-using TestWebService.Data.DbInitialize.DTO;
-using TestWebService.Model.ElectricalDevices.EnergyMeters;
-using TestWebService.Model.ElectricalDevices.Transformers;
-using TestWebService.Model.ElectricityConsumptionObjects;
-using TestWebService.Model.ElectricityMeasuringPoints;
-using TestWebService.Model.ElectricitySupplyPoints;
-using TestWebService.Model.Organizations;
+using DTO;
+using Model.ElectricalDevices.EnergyMeters;
+using Model.ElectricalDevices.Transformers;
+using Model.ElectricityConsumptionObjects;
+using Model.ElectricityMeasuringPoints;
+using Model.ElectricitySupplyPoints;
+using Model.Organizations;
 
 /// <summary>
 /// Инициализатор БД.
@@ -32,8 +32,8 @@ public class DbInitializer : IDbInitializer
     public TestDataGraph GenerateTestData()
     {
         var graph = new TestDataGraph();
-        var parentOrganizationId = Guid.NewGuid();
-        var childOrganizationId = Guid.NewGuid();
+        var parentOrganizationId = new Guid("B88D3F98-CCC2-47C8-AFCD-E8E5D8185F9E");
+        var childOrganizationId = new Guid("2A9F49B7-FC3F-439C-88D6-FC79C9255E47");
 
         var childOrganization = new Organization
         {
@@ -53,7 +53,12 @@ public class DbInitializer : IDbInitializer
         graph.Organizations.Add(childOrganization);
         graph.Organizations.Add(parentOrganization);
 
-        var electricityConsumptionObjectIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() };
+        var electricityConsumptionObjectIds = new List<Guid>
+        {
+            new Guid("67FA82B4-F1CE-491F-BD98-3419D355EA53"),
+            new Guid("38CE2462-C310-40B9-B6C5-4EAC8F011A4E"),
+            new Guid("89ECC40B-F41E-4B10-AADB-9ABE2DDE40A7")
+        };
 
         foreach (var electricityConsumptionObjectId in electricityConsumptionObjectIds)
         {

@@ -1,7 +1,7 @@
 namespace TestWebService.Data.ElectricalDevices.Transformers;
 
-using TestWebService.Model.ElectricalDevices.Transformers;
-using TestWebService.Data.Repository;
+using Model.ElectricalDevices.Transformers;
+using Repository;
 
 /// <summary>
 /// Интерфейс репозитория трансформаторов.

@@ -1,12 +1,14 @@
 ﻿namespace TestWebService.Model.ElectricityMeasuringPoints;
 
 using System;
-using TestWebService.Model.ElectricalDevices.EnergyMeters;
-using TestWebService.Model.ElectricalDevices.Transformers;
+using ElectricalDevices.EnergyMeters;
+using ElectricalDevices.Transformers;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Модель точки измерения электроэнергии.
 /// </summary>
+[UsedImplicitly]
 public class ElectricityMeasuringPoint
 {
     /// <summary>
