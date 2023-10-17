@@ -1,8 +1,8 @@
 namespace TestWebService.Data.ElectricalDevices.Transformers;
 
-using TestWebService.Data.Context;
-using TestWebService.Model.ElectricalDevices.Transformers;
-using TestWebService.Data.Repository;
+using Context;
+using Model.ElectricalDevices.Transformers;
+using Repository;
 
 /// <summary>
 /// Репозиторий счетчиков электроэнергии.

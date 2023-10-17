@@ -1,8 +1,8 @@
 namespace TestWebService.Data.Organizations;
 
-using TestWebService.Data.Context;
-using TestWebService.Model.Organizations;
-using TestWebService.Data.Repository;
+using Context;
+using Model.Organizations;
+using Repository;
 
 /// <summary>
 /// Репозиторий точек поставки электроэнергии.

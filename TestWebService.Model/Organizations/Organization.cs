@@ -2,11 +2,13 @@
 
 using System;
 using System.Collections.Generic;
-using TestWebService.Model.ElectricityConsumptionObjects;
+using ElectricityConsumptionObjects;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Модель организации.
 /// </summary>
+[UsedImplicitly]
 public class Organization
 {
     /// <summary>

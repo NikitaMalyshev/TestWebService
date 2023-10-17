@@ -2,12 +2,14 @@
 
 using System;
 using System.Collections.Generic;
-using TestWebService.Model.ElectricityMeasuringPoints;
-using TestWebService.Model.ElectricitySupplyPoints;
+using ElectricityMeasuringPoints;
+using ElectricitySupplyPoints;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Модель объекта потребления электроэнергии.
 /// </summary>
+[UsedImplicitly]
 public class ElectricityConsumptionObject
 {
     /// <summary>

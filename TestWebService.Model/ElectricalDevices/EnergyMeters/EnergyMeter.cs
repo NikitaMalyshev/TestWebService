@@ -1,6 +1,6 @@
 ﻿namespace TestWebService.Model.ElectricalDevices.EnergyMeters;
 
-using TestWebService.Model.ElectricalDevices.Base;
+using Base;
 
 /// <summary>
 /// Модель счетчика электроэнергии.

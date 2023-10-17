@@ -11,6 +11,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TestWebService.Data\TestWebService.Data.csproj" />
+      <ProjectReference Include="..\TestWebService.Services\TestWebService.Services.csproj" />
     </ItemGroup>
+
 
 </Project>

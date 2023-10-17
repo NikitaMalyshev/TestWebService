@@ -1,8 +1,8 @@
 namespace TestWebService.Data.ElectricityMeasuringPoints;
 
-using TestWebService.Data.Context;
-using TestWebService.Model.ElectricityMeasuringPoints;
-using TestWebService.Data.Repository;
+using Context;
+using Model.ElectricityMeasuringPoints;
+using Repository;
 
 /// <summary>
 /// Репозиторий точек измерения электроэнергии.

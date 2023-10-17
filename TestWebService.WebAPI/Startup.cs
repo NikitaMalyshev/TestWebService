@@ -1,67 +1,68 @@
-﻿namespace TestWebService.WebApi
+﻿namespace TestWebService.WebApi;
+
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using Data;
+using Data.Context;
+using JetBrains.Annotations;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
+
+/// <summary>
+/// Класс загрузки приложения.
+/// </summary>
+public class Startup
 {
-    using System.Text.Json;
-    using System.Text.Json.Serialization;
-    using JetBrains.Annotations;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using TestWebService.Data;
-    using TestWebService.Data.Context;
+    /// <summary>
+    /// Инициализирует экземпляр <see cref="Startup"/>.
+    /// </summary>
+    /// <param name="configuration">Конфигурация приложения.</param>
+    public Startup(IConfiguration configuration) => Configuration = configuration;
 
     /// <summary>
-    /// Класс загрузки приложения.
+    /// Получает конфигурацию приложения.
     /// </summary>
-    public class Startup
+    private IConfiguration Configuration { get; }
+
+    /// <summary>
+    /// Выполняет внедрение и настройку сервисов.
+    /// </summary>
+    /// <param name="services">Коллекция сервисов.</param>
+    public void ConfigureServices(IServiceCollection services)
     {
-        /// <summary>
-        /// Инициализирует экземпляр <see cref="Startup"/>.
-        /// </summary>
-        /// <param name="configuration">Конфигурация приложения.</param>
-        public Startup(IConfiguration configuration) => Configuration = configuration;
+        services
+            .AddControllers()
+            .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)));
+        services.AddEndpointsApiExplorer();
+        services.AddDbContext<ApplicationContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        services.AddSwaggerGen();
 
-        /// <summary>
-        /// Получает конфигурацию приложения.
-        /// </summary>
-        private IConfiguration Configuration { get; }
+        services
+            .AddDbInitializer()
+            .AddRepositories()
+            .AddServices();
+    }
 
-        /// <summary>
-        /// Выполняет внедрение и настройку сервисов.
-        /// </summary>
-        /// <param name="services">Коллекция сервисов.</param>
-        public void ConfigureServices(IServiceCollection services)
+    /// <summary>
+    /// Выполняет настройку приложения.
+    /// </summary>
+    /// <param name="applicationBuilder">Компонент для настройки приложения.</param>
+    [UsedImplicitly]
+    public void Configure(IApplicationBuilder applicationBuilder)
+    {
+        applicationBuilder.UseSwagger();
+        applicationBuilder.UseSwaggerUI(c =>
         {
-            services
-                .AddControllers()
-                .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase)));
-            services.AddEndpointsApiExplorer();
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddSwaggerGen();
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestWebService V1");
+        });
 
-            services
-                .AddDbInitializer()
-                .AddRepositories();
-        }
-
-        /// <summary>
-        /// Выполняет настройку приложения.
-        /// </summary>
-        /// <param name="applicationBuilder">Компонент для настройки приложения.</param>
-        [UsedImplicitly]
-        public void Configure(IApplicationBuilder applicationBuilder)
-        {
-            applicationBuilder.UseSwagger();
-            applicationBuilder.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestWebService V1");
-            });
-
-            applicationBuilder
-                .UseRouting()
-                .UseAuthorization()
-                .UseEndpoints(endpoints => endpoints.MapControllers());
-        }
+        applicationBuilder
+            .UseRouting()
+            .UseAuthorization()
+            .UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

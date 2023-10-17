@@ -1,7 +1,7 @@
 namespace TestWebService.Data.Organizations;
 
-using TestWebService.Model.Organizations;
-using TestWebService.Data.Repository;
+using Model.Organizations;
+using Repository;
 
 /// <summary>
 /// Интерфейс репозитория организаций.

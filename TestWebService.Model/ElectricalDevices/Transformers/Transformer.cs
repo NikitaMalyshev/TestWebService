@@ -1,6 +1,6 @@
 ﻿namespace TestWebService.Model.ElectricalDevices.Transformers;
 
-using TestWebService.Model.ElectricalDevices.Base;
+using Base;
 
 /// <summary>
 /// Модель трансформатора.
