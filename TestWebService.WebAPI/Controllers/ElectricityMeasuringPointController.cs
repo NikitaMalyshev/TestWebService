@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.ElectricalDevices.EnergyMeters;
+using Model.ElectricalDevices.Transformers;
 using Services.DTO.ElectricityMeasuringPoints;
 using Services.ElectricityMeasuringPoints;
 using Swashbuckle.AspNetCore.Annotations;
@@ -57,16 +58,62 @@ public class ElectricityMeasuringPointController : ControllerBase
     /// </summary>
     /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления.</param>
     /// <param name="cancellationToken">Флаг остановки выполнения запроса.</param>
-    /// <returns>Сведения об индексе.</returns>
+    /// <returns>Сведения о просроченных счетчиках электроэнергии.</returns>
     [HttpGet]
     [SwaggerOperation]
-    [ProducesResponseType(typeof(ICollection<EnergyMeter>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(List<EnergyMeter>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetExpiredVerificationEnergyMeters(
         [Required] Guid electricityConsumptionObjectId,
         CancellationToken cancellationToken)
     {
         var response = await _electricityMeasuringPointService
             .GetMetersWithExpiredVerificationDate(electricityConsumptionObjectId, cancellationToken)
+            .ConfigureAwait(false);
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// По объекту потребления получает список трансформаторов тока с закончившимся сроком поверки.
+    /// </summary>
+    /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления.</param>
+    /// <param name="cancellationToken">Флаг остановки выполнения запроса.</param>
+    /// <returns>Сведения просроченных трансформаторах тока.</returns>
+    [HttpGet]
+    [SwaggerOperation]
+    [ProducesResponseType(typeof(List<Transformer>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetExpiredVerificationCurrentTransformers(
+        [Required] Guid electricityConsumptionObjectId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _electricityMeasuringPointService
+            .GetTransformersWithExpiredVerificationDate(
+                electricityConsumptionObjectId,
+                TransformerType.Current,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// По объекту потребления получает список трансформаторов напряжения с закончившимся сроком поверки.
+    /// </summary>
+    /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления.</param>
+    /// <param name="cancellationToken">Флаг остановки выполнения запроса.</param>
+    /// <returns>Сведения просроченных трансформаторах напряжения.</returns>
+    [HttpGet]
+    [SwaggerOperation]
+    [ProducesResponseType(typeof(List<Transformer>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetExpiredVerificationVoltageTransformers(
+        [Required] Guid electricityConsumptionObjectId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _electricityMeasuringPointService
+            .GetTransformersWithExpiredVerificationDate(
+                electricityConsumptionObjectId,
+                TransformerType.Voltage,
+                cancellationToken)
             .ConfigureAwait(false);
 
         return Ok(response);

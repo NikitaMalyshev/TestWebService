@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Context;
 using Microsoft.EntityFrameworkCore;
 using Model.ElectricalDevices.EnergyMeters;
+using Model.ElectricalDevices.Transformers;
 using Model.ElectricityMeasuringPoints;
 using Repository;
 
@@ -38,6 +39,27 @@ public class ElectricityMeasuringPointRepository :
             .Where(p => p.ElectricityConsumptionObjectId == electricityConsumptionObjectId)
             .Where(p => p.EnergyMeter.VerificationDate > DateTime.Now)
             .Select(p => p.EnergyMeter)
+            .ToListAsync(cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public Task<List<Transformer>> GetExpiredVerificationTransformers(
+        Guid electricityConsumptionObjectId,
+        TransformerType transformerType,
+        CancellationToken cancellationToken)
+    {
+        return CurrentContext
+            .AsNoTracking()
+            .Include(p => p.VoltageTransformer)
+            .Where(p => p.ElectricityConsumptionObjectId == electricityConsumptionObjectId)
+            .Where(p =>
+                transformerType == TransformerType.Current
+                    ? p.CurrentTransformer.VerificationDate > DateTime.Now
+                    : p.VoltageTransformer.VerificationDate > DateTime.Now)
+            .Select(p =>
+                transformerType == TransformerType.Current
+                    ? p.CurrentTransformer
+                    : p.VoltageTransformer)
             .ToListAsync(cancellationToken);
     }
 }

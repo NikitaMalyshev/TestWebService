@@ -80,4 +80,16 @@ public class ElectricityMeasuringPointService : IElectricityMeasuringPointServic
     {
         return _repository.GetExpiredVerificationMeters(electricityConsumptionObjectId, cancellationToken);
     }
+
+    /// <inheritdoc />
+    public Task<List<Transformer>> GetTransformersWithExpiredVerificationDate(
+        Guid electricityConsumptionObjectId,
+        TransformerType transformerType,
+        CancellationToken cancellationToken)
+    {
+        return _repository.GetExpiredVerificationTransformers(
+            electricityConsumptionObjectId,
+            transformerType,
+            cancellationToken);
+    }
 }
