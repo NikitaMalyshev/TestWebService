@@ -1,10 +1,16 @@
 namespace TestWebService.WebAPI.Controllers;
 
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Model.ElectricalDevices.EnergyMeters;
 using Services.DTO.ElectricityMeasuringPoints;
 using Services.ElectricityMeasuringPoints;
+using Swashbuckle.AspNetCore.Annotations;
 
 /// <summary>
 /// Контроллер, предоставляющий функционал управления данными о точках измерения электроэнергии.
@@ -34,6 +40,7 @@ public class ElectricityMeasuringPointController : ControllerBase
     /// <param name="cancellationToken">Флаг остановки выполнения запроса.</param>
     /// <returns>Результат операции создания индекса.</returns>
     [HttpPost]
+    [SwaggerOperation]
     public async Task<IActionResult> Create(
         CreatePointDto dto,
         CancellationToken cancellationToken)
@@ -43,5 +50,25 @@ public class ElectricityMeasuringPointController : ControllerBase
             .ConfigureAwait(false);
 
         return Ok();
+    }
+
+    /// <summary>
+    /// По объекту потребления получает список счетчиков электроэнергии с закончившимся сроком поверки.
+    /// </summary>
+    /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления.</param>
+    /// <param name="cancellationToken">Флаг остановки выполнения запроса.</param>
+    /// <returns>Сведения об индексе.</returns>
+    [HttpGet]
+    [SwaggerOperation]
+    [ProducesResponseType(typeof(ICollection<EnergyMeter>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetExpiredVerificationEnergyMeters(
+        [Required] Guid electricityConsumptionObjectId,
+        CancellationToken cancellationToken)
+    {
+        var response = await _electricityMeasuringPointService
+            .GetMetersWithExpiredVerificationDate(electricityConsumptionObjectId, cancellationToken)
+            .ConfigureAwait(false);
+
+        return Ok(response);
     }
 }

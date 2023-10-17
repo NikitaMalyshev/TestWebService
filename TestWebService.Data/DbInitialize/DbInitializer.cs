@@ -99,7 +99,7 @@ public class DbInitializer : IDbInitializer
                 Id = Guid.NewGuid(),
                 Number = _random.Next(0, 1000),
                 Type = (MeterType)_random.Next(1, 3),
-                VerificationDate = new DateTime(2023, 01, 01).AddDays(_random.Next(300))
+                VerificationDate = new DateTime(2023, 10, 01).AddDays(_random.Next(25))
             };
             var currentTransformer = new Transformer
             {
@@ -107,7 +107,7 @@ public class DbInitializer : IDbInitializer
                 Number = _random.Next(0, 1000),
                 Type = TransformerType.Current,
                 Subtype = (TransformerSubtype)_random.Next(1, 3),
-                VerificationDate = new DateTime(2023, 01, 01).AddDays(_random.Next(300)),
+                VerificationDate = new DateTime(2023, 10, 01).AddDays(_random.Next(25)),
                 TransformationRatio = 1
             };
             var voltageTransformer = new Transformer
@@ -116,7 +116,7 @@ public class DbInitializer : IDbInitializer
                 Number = _random.Next(0, 1000),
                 Type = TransformerType.Voltage,
                 Subtype = (TransformerSubtype)_random.Next(1, 3),
-                VerificationDate = new DateTime(2023, 01, 01).AddDays(_random.Next(300)),
+                VerificationDate = new DateTime(2023, 10, 01).AddDays(_random.Next(25)),
                 TransformationRatio = 1
             };
             var electricityMeasuringPoint = new ElectricityMeasuringPoint

@@ -29,6 +29,11 @@ public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
         _dbContext = dbContext;
     }
 
+    /// <summary>
+    /// Получает контекст сущности.
+    /// </summary>
+    protected DbSet<T> CurrentContext => _dbContext.Set<T>();
+
     /// <inheritdoc />
     public IQueryable<T> FindAll()
     {
