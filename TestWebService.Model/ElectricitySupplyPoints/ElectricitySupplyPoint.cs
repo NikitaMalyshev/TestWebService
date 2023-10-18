@@ -1,10 +1,15 @@
 ﻿namespace TestWebService.Model.ElectricitySupplyPoints;
 
 using System;
+using System.Collections.Generic;
+using CalculatingMeteringDevices;
+using ElectricityMeasuringPoints;
+using JetBrains.Annotations;
 
 /// <summary>
 /// Модель точки поставки электроэнергии.
 /// </summary>
+[UsedImplicitly]
 public class ElectricitySupplyPoint
 {
     /// <summary>
@@ -26,4 +31,14 @@ public class ElectricitySupplyPoint
     /// Получает или задает идентификатор объекта потребления электроэнергии.
     /// </summary>
     public Guid ElectricityConsumptionObjectId { get; set; }
+
+    /// <summary>
+    /// Получает или задает точки измерения электроэнергии.
+    /// </summary>
+    public virtual ICollection<ElectricityMeasuringPoint> ElectricityMeasuringPoints { get; set; }
+
+    /// <summary>
+    /// Получает или задает расчетные приборы учета.
+    /// </summary>
+    public virtual ICollection<CalculatingMeteringDevice> CalculatingMeteringDevices { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿namespace TestWebService.Services;
 
+using CalculatingMeteringDevices;
 using ElectricityMeasuringPoints;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,8 @@ public static class ServiceCollectionExtensions
     /// <returns>Реестр модулей приложения с зарегистрированными сервисами.</returns>
     public static IServiceCollection AddServices(this IServiceCollection services)
     {
-        return services.AddTransient<IElectricityMeasuringPointService, ElectricityMeasuringPointService>();
+        return services
+            .AddTransient<IElectricityMeasuringPointService, ElectricityMeasuringPointService>()
+            .AddTransient<ICalculatingMeteringDeviceService, CalculatingMeteringDeviceService>();
     }
 }
