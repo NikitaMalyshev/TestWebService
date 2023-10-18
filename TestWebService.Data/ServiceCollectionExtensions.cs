@@ -1,5 +1,6 @@
 namespace TestWebService.Data;
 
+using CalculatingMeteringDevices;
 using DbInitialize;
 using ElectricalDevices.EnergyMeters;
 using ElectricalDevices.Transformers;
@@ -37,6 +38,7 @@ public static class ServiceCollectionExtensions
             .AddTransient<IElectricityConsumptionObjectRepository, ElectricityConsumptionObjectRepository>()
             .AddTransient<IElectricityMeasuringPointRepository, ElectricityMeasuringPointRepository>()
             .AddTransient<IElectricitySupplyPointRepository, ElectricitySupplyPointRepository>()
+            .AddTransient<ICalculatingMeteringDeviceRepository, CalculatingMeteringDeviceRepository>()
             .AddTransient<IOrganizationRepository, OrganizationRepository>();
     }
 }

@@ -6,6 +6,7 @@ using System.Threading;
 using TestWebService.Services.DTO.ElectricityMeasuringPoints;
 using System.Threading.Tasks;
 using Model.ElectricalDevices.EnergyMeters;
+using Model.ElectricalDevices.Transformers;
 
 /// <summary>
 /// Интерфейс сервиса точек измерения электроэнергии.
@@ -28,5 +29,17 @@ public interface IElectricityMeasuringPointService
     /// <returns>Задача на получение счетчиков электроэнергии.</returns>
     Task<List<EnergyMeter>> GetMetersWithExpiredVerificationDate(
         Guid electricityConsumptionObjectId,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// По объекту потребления получает трансформаторы напряжения с закончившимся сроком поверки.
+    /// </summary>
+    /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления.</param>
+    /// <param name="transformerType">Тип трансформатора.</param>
+    /// <param name="cancellationToken">Флаг отмены выполнения операции.</param>
+    /// <returns>Задача на получение счетчиков электроэнергии.</returns>
+    Task<List<Transformer>> GetTransformersWithExpiredVerificationDate(
+        Guid electricityConsumptionObjectId,
+        TransformerType transformerType,
         CancellationToken cancellationToken);
 }

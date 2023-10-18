@@ -1,6 +1,7 @@
 ﻿namespace TestWebService.Data.Context;
 
 using System;
+using CalculatingMeteringDevices;
 using DbInitialize;
 using ElectricalDevices.EnergyMeters;
 using ElectricalDevices.Transformers;
@@ -8,6 +9,7 @@ using ElectricityConsumptionObjects;
 using ElectricityMeasuringPoints;
 using ElectricitySupplyPoints;
 using Microsoft.EntityFrameworkCore;
+using Model.CalculatingMeteringDevices;
 using Model.ElectricalDevices.EnergyMeters;
 using Model.ElectricalDevices.Transformers;
 using Model.ElectricityConsumptionObjects;
@@ -67,6 +69,11 @@ public class ApplicationContext : DbContext
     /// </summary>
     public DbSet<Organization> Organizations { get; set; }
 
+    /// <summary>
+    /// Получает или задает расчетные приборы учета.
+    /// </summary>
+    public DbSet<CalculatingMeteringDevice> CalculatingMeteringDevices { get; set; }
+
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -79,10 +86,12 @@ public class ApplicationContext : DbContext
         modelBuilder.ApplyConfiguration(new ElectricitySupplyPointConfig());
         modelBuilder.ApplyConfiguration(new EnergyMeterConfig());
         modelBuilder.ApplyConfiguration(new TransformerConfig());
+        modelBuilder.ApplyConfiguration(new CalculatingMeteringDeviceConfig());
 
         var dataGraph = _dbInitializer.GenerateTestData();
 
         modelBuilder.Entity<Organization>().HasData(dataGraph.Organizations);
+        modelBuilder.Entity<CalculatingMeteringDevice>().HasData(dataGraph.CalculatingMeteringDevices);
         modelBuilder.Entity<ElectricityConsumptionObject>().HasData(dataGraph.ElectricityConsumptionObjects);
         modelBuilder.Entity<ElectricityMeasuringPoint>().HasData(dataGraph.ElectricityMeasuringPoints);
         modelBuilder.Entity<ElectricitySupplyPoint>().HasData(dataGraph.ElectricitySupplyPoints);

@@ -2,6 +2,7 @@ namespace TestWebService.Data.ElectricitySupplyPoints;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Model.CalculatingMeteringDevices;
 using TestWebService.Model.ElectricitySupplyPoints;
 
 /// <summary>
@@ -16,5 +17,10 @@ internal class ElectricitySupplyPointConfig : IEntityTypeConfiguration<Electrici
         builder.Property(p => p.Name).IsRequired();
         builder.Property(p => p.MaxPower).IsRequired();
         builder.Property(p => p.ElectricityConsumptionObjectId).IsRequired();
+
+        builder
+            .HasMany(p => p.ElectricityMeasuringPoints)
+            .WithMany(p => p.ElectricitySupplyPoints)
+            .UsingEntity<CalculatingMeteringDevice>();
     }
 }

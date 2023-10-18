@@ -2,6 +2,7 @@ namespace TestWebService.Data.ElectricityMeasuringPoints;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Model.CalculatingMeteringDevices;
 using TestWebService.Model.ElectricityMeasuringPoints;
 
 /// <summary>
@@ -32,5 +33,10 @@ internal class ElectricityMeasuringPointConfig : IEntityTypeConfiguration<Electr
             .WithOne()
             .HasForeignKey<ElectricityMeasuringPoint>(p => p.VoltageTransformerId)
             .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasMany(p => p.ElectricitySupplyPoints)
+            .WithMany(p => p.ElectricityMeasuringPoints)
+            .UsingEntity<CalculatingMeteringDevice>();
     }
 }

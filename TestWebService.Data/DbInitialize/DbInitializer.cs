@@ -3,6 +3,7 @@ namespace TestWebService.Data.DbInitialize;
 using System;
 using System.Collections.Generic;
 using DTO;
+using Model.CalculatingMeteringDevices;
 using Model.ElectricalDevices.EnergyMeters;
 using Model.ElectricalDevices.Transformers;
 using Model.ElectricityConsumptionObjects;
@@ -70,8 +71,7 @@ public class DbInitializer : IDbInitializer
                 OrganizationId = childOrganizationId
             };
 
-            GenerateElectricityMeasuringPoint(graph, electricityConsumptionObjectId);
-            GenerateElectricitySupplyPoint(graph, electricityConsumptionObjectId);
+            GeneratePoints(graph, electricityConsumptionObjectId);
 
             graph.ElectricityConsumptionObjects.Add(electricityConsumptionObject);
         }
@@ -80,11 +80,11 @@ public class DbInitializer : IDbInitializer
     }
 
     /// <summary>
-    /// Генерирует коллекцию точек измерения электроэнергии.
+    /// Генерирует основные сущности.
     /// </summary>
     /// <param name="testDataGraph">Граф тестовых данных.</param>
     /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления электроэнергии.</param>
-    private void GenerateElectricityMeasuringPoint(
+    private void GeneratePoints(
         TestDataGraph testDataGraph,
         Guid electricityConsumptionObjectId)
     {
@@ -119,6 +119,7 @@ public class DbInitializer : IDbInitializer
                 VerificationDate = new DateTime(2023, 10, 01).AddDays(_random.Next(25)),
                 TransformationRatio = 1
             };
+
             var electricityMeasuringPoint = new ElectricityMeasuringPoint
             {
                 Id = electricityMeasuringPointId,
@@ -128,34 +129,29 @@ public class DbInitializer : IDbInitializer
                 VoltageTransformerId = voltageTransformer.Id,
                 ElectricityConsumptionObjectId = electricityConsumptionObjectId
             };
+            var electricitySupplyPoint = new ElectricitySupplyPoint
+            {
+                Id = Guid.NewGuid(),
+                Name = "ElectricitySupplyPoint_" + _random.Next(0, 1000),
+                MaxPower = _random.Next(0, 1000),
+                ElectricityConsumptionObjectId = electricityConsumptionObjectId
+            };
+
+            var startDate = new DateTime(_random.Next(2015, 2024), 01, 01);
+            var calculatingMeteringDevice = new CalculatingMeteringDevice
+            {
+                ElectricityMeasuringPointId = electricityMeasuringPointId,
+                ElectricitySupplyPointId = electricitySupplyPoint.Id,
+                StartDate = startDate,
+                EndDate = startDate.AddDays(_random.Next(365)),
+            };
 
             testDataGraph.EnergyMeters.Add(energyMeter);
             testDataGraph.Transformers.Add(currentTransformer);
             testDataGraph.Transformers.Add(voltageTransformer);
             testDataGraph.ElectricityMeasuringPoints.Add(electricityMeasuringPoint);
+            testDataGraph.ElectricitySupplyPoints.Add(electricitySupplyPoint);
+            testDataGraph.CalculatingMeteringDevices.Add(calculatingMeteringDevice);
         }
-    }
-
-    /// <summary>
-    /// Генерирует точку поставки электроэнергии.
-    /// </summary>
-    /// <param name="testDataGraph">Граф тестовых данных.</param>
-    /// <param name="electricityConsumptionObjectId">Идентификатор объекта потребления электроэнергии.</param>
-    private void GenerateElectricitySupplyPoint(
-        TestDataGraph testDataGraph,
-        Guid electricityConsumptionObjectId)
-    {
-        if (testDataGraph == null)
-            throw new ArgumentNullException(nameof(testDataGraph));
-
-        var electricitySupplyPoint = new ElectricitySupplyPoint
-        {
-            Id = Guid.NewGuid(),
-            Name = "ElectricitySupplyPoint_" + _random.Next(0, 1000),
-            MaxPower = _random.Next(0, 1000),
-            ElectricityConsumptionObjectId = electricityConsumptionObjectId
-        };
-
-        testDataGraph.ElectricitySupplyPoints.Add(electricitySupplyPoint);
     }
 }

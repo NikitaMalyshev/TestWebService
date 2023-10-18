@@ -1,6 +1,7 @@
 namespace TestWebService.Data.DbInitialize.DTO;
 
 using System.Collections.Generic;
+using Model.CalculatingMeteringDevices;
 using TestWebService.Model.ElectricalDevices.EnergyMeters;
 using TestWebService.Model.ElectricalDevices.Transformers;
 using TestWebService.Model.ElectricityConsumptionObjects;
@@ -19,6 +20,7 @@ public class TestDataGraph
     public TestDataGraph()
     {
         Organizations = new List<Organization>();
+        CalculatingMeteringDevices = new List<CalculatingMeteringDevice>();
         ElectricityConsumptionObjects = new List<ElectricityConsumptionObject>();
         ElectricityMeasuringPoints = new List<ElectricityMeasuringPoint>();
         ElectricitySupplyPoints = new List<ElectricitySupplyPoint>();
@@ -30,6 +32,11 @@ public class TestDataGraph
     /// Получает коллекцию организаций.
     /// </summary>
     public ICollection<Organization> Organizations { get; private set; }
+
+    /// <summary>
+    /// Получает коллекцию объектов расчетных приборов учета.
+    /// </summary>
+    public ICollection<CalculatingMeteringDevice> CalculatingMeteringDevices { get; private set; }
 
     /// <summary>
     /// Получает коллекцию объектов потребления электроэнергии.
